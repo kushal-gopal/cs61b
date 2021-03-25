@@ -57,13 +57,13 @@ public class LinkedListDeque<T> {
         return true;
     }
 
-    /** Returns the numebr of items in the deque. */
+    /** Returns the number of items in the deque. */
     public int size() {
         return size;
     }
 
     /** Prints the items in the deque from first to last,
-     *  spearated by a space. Once all the items have been printed,
+     *  separated by a space. Once all the items have been printed,
      *  a newline is printed.
      */
     public void printDeque() {
