@@ -16,4 +16,23 @@ public class TestPalindrome {
         assertEquals("persiflage", actual);
     }
 
+    @Test
+    public void testIsPalindrome() {
+        assertTrue(palindrome.isPalindrome("malayalam"));
+        assertFalse(palindrome.isPalindrome("mandolorian"));
+        assertFalse(palindrome.isPalindrome("sows"));
+        assertTrue(palindrome.isPalindrome("A"));
+        assertTrue(palindrome.isPalindrome("a"));
+        assertTrue(palindrome.isPalindrome("tenet"));
+    }
+
+    @Test
+    /** Test the overloaded isPalindrome method. */
+    public void testisPalindromeComparator() {
+        CharacterComparator offByOne = new OffByOne();
+
+        assertTrue(palindrome.isPalindrome("flake", offByOne));
+        assertFalse(palindrome.isPalindrome("noon", offByOne));
+    }
+
 }
