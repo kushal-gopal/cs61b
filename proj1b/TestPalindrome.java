@@ -34,5 +34,4 @@ public class TestPalindrome {
         assertTrue(palindrome.isPalindrome("flake", offByOne));
         assertFalse(palindrome.isPalindrome("noon", offByOne));
     }
-
 }
