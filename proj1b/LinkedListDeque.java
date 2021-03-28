@@ -105,7 +105,7 @@ public class LinkedListDeque<T> implements Deque<T> {
 
     @Override
     /** Gets the item at the given index(zero-indexed).
-     *  Returns null, if no item exists, return null.
+     *  If no item exists, return null.
      */
     public T get(int index) {
         if (index < 0 || index >= size) {

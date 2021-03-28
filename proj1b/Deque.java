@@ -8,7 +8,7 @@ public interface Deque<T> {
     public void addLast(T item);
 
     /** Returns true if deque is empty, false otherwise. */
-    default public boolean isEmpty() {
+    public default boolean isEmpty() {
         if (size() == 0) {
             return true;
         }
@@ -35,7 +35,7 @@ public interface Deque<T> {
     public T removeLast();
 
     /** Gets the item at the given index(zero-indexed).
-     *  Returns null, if no item exists, return null.
+     *  If no item exists, return null.
      */
     public T get(int index);
 }

@@ -102,7 +102,7 @@ public class ArrayDeque<T> implements Deque<T> {
 
     @Override
     /** Removes and returns the item at the back of deque.
-     *  Returns null if no such items exits.
+     *  Returns null if no such item exits.
      */
     public T removeFirst() {
         if (size == 0) {
@@ -125,7 +125,7 @@ public class ArrayDeque<T> implements Deque<T> {
 
     @Override
     /** Removes and returns the item at the back of deque.
-     *  Returns null if no such items exits.
+     *  Returns null if no such item exits.
      */ 
     public T removeLast() {
         if (size == 0) {
