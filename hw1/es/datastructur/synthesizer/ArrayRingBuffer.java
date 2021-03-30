@@ -2,8 +2,9 @@ package es.datastructur.synthesizer;
 import java.util.Iterator;
 
 /**
- * Invariants : First item in the buffer is at first.
- * Next item to be enqueued is at last variable.
+ * Invariants : First item in the buffer is at 'first' variable.
+ * Last item is at 'last' - 1.
+ * Next item to be enqueued is at 'last' variable.
  */
 public class ArrayRingBuffer<T> implements BoundedQueue<T> {
     /* Index for the next dequeue or peek. */
@@ -81,6 +82,31 @@ public class ArrayRingBuffer<T> implements BoundedQueue<T> {
         return rb[first];
     }
 
+    /** Private class which implements Iterator methods. */
+    private class ArrayRingBufferIterator implements Iterator<T> {
+        int pos;
+
+        public ArrayRingBufferIterator() {
+            pos = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return pos < fillCount;
+        }
+
+        @Override
+        public T next() {
+            T toReturn = rb[(pos + first) % capacity];
+            pos += 1;
+            return toReturn;
+        }
+    }
+
+    /** Returns an iterator for ArrayRingBuffer. */
+    public Iterator<T> iterator() {
+        return new ArrayRingBufferIterator();
+    }
     // TODO: When you get to part 4, implement the needed code to support
     //       iteration and equals.
 }

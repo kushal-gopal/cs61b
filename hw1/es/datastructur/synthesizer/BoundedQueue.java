@@ -1,6 +1,7 @@
 package es.datastructur.synthesizer;
+import java.util.Iterator;
 
-public interface BoundedQueue<T> {
+public interface BoundedQueue<T> extends Iterable<T> {
 
     /** Returns the size of the buffer. */
     int capacity();
@@ -26,6 +27,9 @@ public interface BoundedQueue<T> {
     default boolean isFull() {
         return fillCount() == capacity();
     }
+
+    /** Iterator method for ArrayRingBuffer. */
+    Iterator<T> iterator();
 }
 
 

@@ -36,4 +36,20 @@ public class TestArrayRingBuffer {
         //assertEquals(20, (double) arb.peek(), 0.1);
     }
 
+    @Test
+    public void testIterator() {
+        ArrayRingBuffer<Double> arb = new ArrayRingBuffer(10);
+        for (int i = 0; i < 10; i++) {
+            arb.enqueue((double) i);
+        }
+        arb.dequeue();
+        arb.dequeue();
+        arb.dequeue();
+        arb.enqueue(25.0);
+        for (Double a : arb) {
+            System.out.println(a);
+        }
+
+    }
+
 }
