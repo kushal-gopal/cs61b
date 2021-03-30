@@ -8,7 +8,32 @@ import static org.junit.Assert.*;
 
 public class TestArrayRingBuffer {
     @Test
-    public void someTest() {
-        //ArrayRingBuffer arb = new ArrayRingBuffer(10);
+    public void testEnqueue() {
+        ArrayRingBuffer<Double> arb = new ArrayRingBuffer(10);
+        arb.enqueue(10.0);
+        arb.enqueue(20.0);
     }
+
+    @Test
+    public void testDequeue() {
+        ArrayRingBuffer<Integer> arb = new ArrayRingBuffer(10);
+        arb.enqueue(10);
+        arb.enqueue(20);
+        assertEquals(10, (int) arb.dequeue());
+        assertEquals(20, (int) arb.dequeue());
+    }
+
+    @Test
+    public void testPeek() {
+        ArrayRingBuffer<Double> arb = new ArrayRingBuffer(10);
+        arb.enqueue(10.0);
+        arb.enqueue(20.0);
+        assertEquals(10, (double) arb.peek(), 0.1);
+        assertEquals(10, (double) arb.peek(), 0.1);
+        arb.dequeue();
+        assertEquals(20, (double) arb.peek(), 0.1);
+        arb.dequeue();
+        //assertEquals(20, (double) arb.peek(), 0.1);
+    }
+
 }
