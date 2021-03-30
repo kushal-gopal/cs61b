@@ -15,17 +15,15 @@ public class ArrayRingBuffer<T> implements BoundedQueue<T> {
     private int fillCount;
     /* Array for storing the buffer data. */
     private T[] rb;
-    /* Variable for the capacity of the buffer. */
-    private final int capacity;
 
     @Override
-    /** Returns the size of the buffer. */
+    /* Returns the size of the buffer. */
     public int capacity() {
-        return capacity;
+        return rb.length;
     }
 
     @Override
-    /** Returns the numbers of items in the buffer. */
+    /* Returns the numbers of items in the buffer. */
     public int fillCount() {
         return fillCount;
     }
@@ -38,42 +36,41 @@ public class ArrayRingBuffer<T> implements BoundedQueue<T> {
         first = 0;
         last = 0;
         fillCount = 0;
-        this.capacity = capacity;
     }
 
     @Override
-    /**
-     * Adds x to the end of the ring buffer. If there is no room, then
-     * throw new RuntimeException("Ring buffer overflow").
+    /*
+      Adds x to the end of the ring buffer. If there is no room, then
+      throw new RuntimeException("Ring buffer overflow").
      */
     public void enqueue(T x) {
-        if (fillCount == capacity) {
+        if (fillCount == rb.length) {
             throw new RuntimeException("Ring buffer overflow");
         }
         rb[last] = x;
         fillCount += 1;
-        last = (last + 1) % capacity;
+        last = (last + 1) % rb.length;
     }
 
     @Override
-    /**
-     * Dequeue oldest item in the ring buffer. If the buffer is empty, then
-     * throw new RuntimeException("Ring buffer underflow").
+    /*
+      Dequeue oldest item in the ring buffer. If the buffer is empty, then
+      throw new RuntimeException("Ring buffer underflow").
      */
     public T dequeue() {
         if (fillCount == 0) {
             throw new RuntimeException("Ring buffer underflow");
         }
         T toReturn = rb[first];
-        first = (first + 1) % capacity;
+        first = (first + 1) % rb.length;
         fillCount -= 1;
         return toReturn;
     }
 
     @Override
-    /**
-     * Return oldest item, but don't remove it. If the buffer is empty, then
-     * throw new RuntimeException("Ring buffer underflow").
+    /*
+      Return oldest item, but don't remove it. If the buffer is empty, then
+      throw new RuntimeException("Ring buffer underflow").
      */
     public T peek() {
         if (fillCount == 0) {
@@ -97,17 +94,39 @@ public class ArrayRingBuffer<T> implements BoundedQueue<T> {
 
         @Override
         public T next() {
-            T toReturn = rb[(pos + first) % capacity];
+            T toReturn = rb[(pos + first) % rb.length];
             pos += 1;
             return toReturn;
         }
     }
 
-    /** Returns an iterator for ArrayRingBuffer. */
+    /* Returns an iterator for ArrayRingBuffer. */
     public Iterator<T> iterator() {
         return new ArrayRingBufferIterator();
     }
     // TODO: When you get to part 4, implement the needed code to support
     //       iteration and equals.
+
+    @Override
+    /* Return true if both the array ring buffers contain same values. */
+    public boolean equals(Object other) {
+        if (other == null) {
+            return false;
+        }
+        if (other.getClass() != this.getClass()) {
+            return false;
+        }
+        ArrayRingBuffer<T> o = (ArrayRingBuffer<T>) other;
+        if (this.fillCount != o.fillCount || this.capacity() != o.capacity()) {
+            return false;
+        }
+        for (int i = 0; i < this.fillCount; i++) {
+            int pos1 = (this.first + i) % this.capacity();
+            int pos2 = (o.first + i) % this.capacity();
+            if (!this.rb[pos1].equals(o.rb[pos2])) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
-    // TODO: Remove all comments that say TODO when you're done.

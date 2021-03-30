@@ -49,7 +49,28 @@ public class TestArrayRingBuffer {
         for (Double a : arb) {
             System.out.println(a);
         }
-
     }
 
+    @Test
+    public void testEquals() {
+        ArrayRingBuffer<Double> arb1 = new ArrayRingBuffer(10);
+        ArrayRingBuffer<Double> arb2 = new ArrayRingBuffer(10);
+        for (int i = 0; i < 10; i++) {
+            arb1.enqueue((double) i);
+        }
+        for (int i = 0; i < 10; i++) {
+            arb2.enqueue((double) i);
+        }
+        assertTrue(arb1.equals(arb2));
+
+        ArrayRingBuffer<Double> arb3 = new ArrayRingBuffer(10);
+        for (int i = 0; i < 10; i++) {
+            arb3.enqueue((double) 2.0);
+        }
+        assertFalse(arb1.equals(arb3));
+
+        assertFalse(arb1.equals("fish"));
+
+        assertFalse(arb1.equals(null));
+    }
 }
